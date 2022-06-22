@@ -266,11 +266,12 @@ body {
   align-items: center;
   margin-left: 1rem;
   width: var(--fixed-width);
-  height: 1100px;
+  min-height: 1100px;
   background-color: #e8ebef;
   border-radius: 20px;
   justify-self: center;
   position: relative;
+  padding-bottom: 2rem;
 }
 
 .header-container {
@@ -392,7 +393,7 @@ body {
 }
 
 .meals {
-  height: 700px;
+  min-height: 700px;
   margin: 0 2rem;
   overflow: hidden;
 }
@@ -461,3 +462,70 @@ body {
   color: red;
   font-size: 2rem;
 } */
+
+.meal-info-container {
+  position: fixed;
+  display: grid;
+  /* opacity: 0;
+  pointer-events: none; */
+  /*display: grid; --> moved to meal-popup */
+  /* display: none to hide by default */
+  /* display: none;*/
+  background-color: rgba(0, 0, 0, 0.2);
+  top: 3rem;
+  right: 5rem;
+  bottom: 1rem;
+  left: 5rem;
+  border-radius: 20px;
+  padding-bottom: 2rem;
+}
+
+.meal-info {
+  justify-self: center;
+  max-height: 700px;
+  max-width: 600px;
+  overflow: hidden;
+  padding: 2rem;
+  border-radius: 10px;
+}
+.meal-info img {
+  max-width: 100%;
+  padding: 1rem;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.meal-info h2 {
+  text-align: center;
+}
+.recipe-details {
+  justify-self: center;
+}
+
+.meal-info #close-popup-btn {
+  font-size: 1.5rem;
+  border: none;
+  background: transparent;
+  color: red;
+  position: absolute;
+  top: -1.2rem;
+  right: -1.1rem;
+  cursor: pointer;
+}
+
+.meal-popup {
+  position: fixed;
+  display: grid;
+  background-color: rgba(0, 0, 0, 0.2);
+  top: 3rem;
+  right: 5rem;
+  bottom: 1rem;
+  left: 5rem;
+  border-radius: 20px;
+  padding-bottom: 2rem;
+}
+
+.close-meal-popup {
+  display: none;
+  transition: ease-out;
+  /* opacity: 0; */
+}

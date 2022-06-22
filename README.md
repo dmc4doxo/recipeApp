@@ -11,3 +11,6 @@
 <!--  -->
 <!-- LocalStorage is Favorite...  -->
 <!--  How to check is variable is an object -->
+
+<!--  Please HELP -->
+<!--  I have added a popup window and assigned a button to close when its opened.  In my manual test, it works.  But using JS, I am not sure why the click seems to have no effect.  Everything look correct to me... 4 hours later, I need help -->

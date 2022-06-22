@@ -1,13 +1,7 @@
 // Meal API supplied by themealdb.com at https://www.themealdb.com/api.php
 //
-const mealsEl = document.getElementById("meals");
+const meals = document.getElementById("meals");
 const favoriteContainer = document.getElementById("fav-meals");
-
-const searchInput = document.getElementById("search-text");
-const searchBtn = document.getElementById("search");
-
-const mealPopup = document.getElementsByClassName("meal-info-container");
-const popupBtn = document.getElementById("close-popup-btn");
 
 getRandomMeal();
 fetchFavMeals();
@@ -17,7 +11,12 @@ async function getRandomMeal() {
     "https://www.themealdb.com/api/json/v1/1/random.php"
   );
 
+  // when u fetch u get a promise (response). get the response
+  // by json. response (resp) is an object and the first property
+  // in that object is the meal [0].
+
   responseData = await resp.json();
+
   randomMeal = responseData.meals[0];
   console.log(randomMeal); // this is the same as mealData
 
@@ -34,21 +33,17 @@ async function getMealById(id) {
   return meal;
 }
 
-async function getMealBySearch(term) {
-  const searchResponse = await fetch(
-    "https://www.themealdb.com/api/json/v1/1/search.php?s=" + term
+async function getMealBySearch() {
+  const mealResult = await fetch(
+    "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchTerm
   );
-  const responseData = await searchResponse.json();
-  const searchedResults = await responseData.meals; // Why are we appending .meals (what does this do?)
-
-  return searchedResults;
 }
 
 // Selecting Meals and adding to the random section.
 
 function addMeal(mealData, random = false) {
   console.log(mealData); // same as randomMeal
-  // const mealNumber = mealData.idMeal;
+  const mealNumber = mealData.idMeal;
   const meal = document.createElement("div");
   meal.classList.add("meal");
 
@@ -79,9 +74,23 @@ function addMeal(mealData, random = false) {
       fav.classList.add("active");
       addMealToLocalStorage(mealData.idMeal);
     }
+
+    // localStorage.clear(); Remove all fav
+
+    // console.log(mealNumber); // TESTING M T. =
+    // do fetch the ID.==> push to an array of fav if le length is less than 5... and display the content of that array of the fav list.
+    // const arrayOfFav = [];
+    // if(arrayOfFav.length < 6){
+    //   arrayOfFav.push(mealNumber);
+    //  }else{
+    // arrayOfFav.shift();  // remove the first or the oldest fav.
+    // arrayOfFav.push(mealNumber);
+    // }
+    // favoriteContainer.innerHTML = ""; No need...???
+
     fetchFavMeals(); // fetchFavMeals(mealNumber)
   });
-  mealsEl.appendChild(meal);
+  meals.appendChild(meal);
 }
 
 //Store meal id
@@ -128,6 +137,18 @@ async function fetchFavMeals() {
 }
 // Need to be added to screen
 
+function removeLiFromFav(mealData) {
+  // const liToBeRemove = document.getElementById(`${mealData.idMeal}`);
+
+  function removeLi() {
+    const liToBeRemove = document.getElementById(`${mealData.idMeal}`);
+    liToBeRemove.remove(); //delete li -- removeChild()????
+    removeMealFromLocalStorage(mealData.idMeal); // remove data from LS
+    // favoriteContainer.removeChild(mealData.idMeal);
+  }
+  return removeLi;
+}
+
 function addMealToFav(mealData) {
   // console.log(mealData); object
   const favMeal = document.createElement("li");
@@ -145,35 +166,18 @@ function addMealToFav(mealData) {
     <i class="fas fa-window-close"></i>
   </button>`;
 
-  // ####Button to delete a favorite###### // Made into closure
+  // ####Button to delete a favorite###### // Closure
+
+  // Modified this to be a closure function... function inside a function.
+  // const btnLi = favMeal.querySelector(".clear");
+  // btnLi.addEventListener("click", () => {
+  //   const favMealId = mealData.idMeal;
+  //   removeLiFromFav(favMealId);
+  // });
 
   const btnLi = favMeal.querySelector(".clear");
-  btnLi.addEventListener("click", () => {
-    const liToBeRemove = document.getElementById(`${mealData.idMeal}`);
-    liToBeRemove.remove(); //delete li -- removeChild()????
-    removeMealFromLocalStorage(mealData.idMeal); // remove data from LS
-  });
+  const removeFunction = removeLiFromFav(mealData);
+  btnLi.addEventListener("click", removeFunction);
+
   favoriteContainer.appendChild(favMeal);
 }
-
-searchBtn.addEventListener("click", async () => {
-  mealsEl.innerHTML = ""; // clear the container
-  const search = searchInput.value;
-  searchedMeals = await getMealBySearch(search);
-  console.log(searchedMeals);
-
-  // const meals = await getMealBySearch(search);
-  // console.log(meals);
-
-  // Add results to random meal areas
-  if (searchedMeals) {
-    // in case search is null.
-    searchedMeals.forEach((meal) => {
-      addMeal(meal);
-    });
-  }
-  // Close the meal popup window. Impossible to get this working.
-  popupBtn.addEventListener("click", () => {
-    mealPopup.classList.add("close-meal-popup");
-  });
-});
