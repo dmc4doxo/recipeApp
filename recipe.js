@@ -6,8 +6,9 @@ const favoriteContainer = document.getElementById("fav-meals");
 const searchInput = document.getElementById("search-text");
 const searchBtn = document.getElementById("search");
 
-const mealPopup = document.getElementsByClassName("meal-info-container");
+const mealPopup = document.getElementById("meal-popup"); // big group
 const popupBtn = document.getElementById("close-popup-btn");
+const mealPopupEl = document.getElementById("meal-info");
 
 getRandomMeal();
 fetchFavMeals();
@@ -57,16 +58,23 @@ function addMeal(mealData, random = false) {
         ${random ? `<h3 class="random-meal-name">Random recipe</h3>` : ""}
             
             <img
-            class="random-recipe-img"
+            class="random-recipe-img" id="mealImg"
             src="${mealData.strMealThumb}"
             alt="${mealData.strMeal}"
             />
         <div class="random-meal-name-container">
         <h4>${mealData.strMeal}</h4>
-        <button class="fav-btn "><i class="fa fa-heart"></i></button>
+    <button class="fav-btn ">
+  <i class="fa fa-heart"></i>
+     </button>
         </div>
         </div>
       `;
+  // Put after h4 above
+  // <button class="fav-btn ">
+  //<i class="fa fa-heart"></i>
+  //  </button>;
+  // const mealImgEl = meal.getElementById("mealImg");
 
   // If random meal is fav (click fav-btn), then add it to LS.
   const fav = meal.querySelector(".fav-btn");
@@ -82,6 +90,14 @@ function addMeal(mealData, random = false) {
     fetchFavMeals(); // fetchFavMeals(mealNumber)
   });
   mealsEl.appendChild(meal);
+
+  //********HERE
+  // Display popup info -- meal.addEventListener
+  //const detailsDiv = createDiv();
+
+  meal.addEventListener("click", () => {
+    showMealInfo(mealData);
+  });
 }
 
 //Store meal id
@@ -154,6 +170,69 @@ function addMealToFav(mealData) {
     removeMealFromLocalStorage(mealData.idMeal); // remove data from LS
   });
   favoriteContainer.appendChild(favMeal);
+
+  // Popop display meal info
+  favMeal.addEventListener("click", () => {
+    // mealPopup.innerHTML = ``;
+    showMealInfo(mealData);
+  });
+}
+// ***** HERE
+// function createDiv() {
+//   const divNew = document.createElement("div");
+//   return divNew;
+// }
+
+//  Function to open the popup to show details
+function showMealInfo(mealData) {
+  //const mealPopupEl = document.getElementById("meal-info");
+  mealPopupEl.innerHTML = ""; // clean up
+
+  const mealInfoDetails = document.createElement("div");
+
+  const ingredients = []; // store the ingredient in an array.
+  // Clean it in case it
+  // Get ingredients
+  // ======
+  // Note that mealData is an object. so object.property or object["Property"] work
+  for (let i = 1; i <= 20; i++) {
+    if (mealData["strIngredient" + i]) {
+      ingredients.push(
+        `${mealData["strIngredient" + i]} : ${mealData["strMeasure" + i]}`
+      );
+    } else {
+      break;
+    }
+  }
+
+  // =====
+  mealInfoDetails.innerHTML = ` `;
+
+  // Need to understand all the ingreedient stuff
+  mealInfoDetails.innerHTML = `
+
+        <h2>${mealData.strMeal}</h2>
+        <img
+          src="${mealData.strMealThumb}"
+          alt=""
+        />
+        <p>${mealData.strInstructions} </p>
+        <h3> Ingredients: </h3>
+        <h4> Watch it on youtube at : <a href="${
+          mealData.strYoutube
+        }" target="_blank"> Youtube Link</a></h4>
+          <ul>   
+          ${ingredients
+            .map(
+              (ing) => `
+            <li>${ing}</li>`
+            )
+            .join(" ")}
+          </ul>       
+`;
+  mealPopupEl.appendChild(mealInfoDetails);
+  // const mealInfoEl = document.getElementById("meal-info"); // we will clear this
+  mealPopup.classList.add("show-meal-popup");
 }
 
 searchBtn.addEventListener("click", async () => {
@@ -172,8 +251,9 @@ searchBtn.addEventListener("click", async () => {
       addMeal(meal);
     });
   }
-  // Close the meal popup window. Impossible to get this working.
-  popupBtn.addEventListener("click", () => {
-    mealPopup.classList.add("close-meal-popup");
-  });
+});
+
+//HERE Close the meal popup window.
+popupBtn.addEventListener("click", () => {
+  mealPopup.classList.remove("show-meal-popup");
 });
