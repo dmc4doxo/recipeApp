@@ -231,7 +231,6 @@ body {
   align-items: center;
   /* margin-left: 1rem; */
   width: var(--fixed-width);
-  max-height: 1050px;
   background-color: #e8ebef;
   border-radius: 20px;
   justify-self: center;

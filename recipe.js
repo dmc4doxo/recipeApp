@@ -55,7 +55,7 @@ function addMeal(mealData, random = false) {
 
   // not very secured - opened to code injection. use data attribute.
   meal.innerHTML = `<div class="meal-header">
-        ${random ? `<h3 class="random-meal-name">Random recipe</h3>` : ""}
+        ${random ? `<h3 class="random-meal-name">Random recipe </h3>` : ""}
             
             <img
             class="random-recipe-img" id="mealImg"
@@ -89,6 +89,7 @@ function addMeal(mealData, random = false) {
     }
     fetchFavMeals(); // fetchFavMeals(mealNumber)
   });
+
   mealsEl.appendChild(meal);
 
   //********HERE
@@ -104,63 +105,63 @@ function addMeal(mealData, random = false) {
     showMealInfo(mealData);
   });
 
-  const randomName = meal.querySelector(".random-meal-name");
-  randomName.addEventListener("click", () => {
-    document.location.reload();
-  });
-}
+  // Break the search
+  // const randomName = meal.querySelector("h3");
+  // randomName.addEventListener("click", () => {
+  //   document.location.reload();
+  // });
 
-//Store meal id
-function addMealToLocalStorage(mealId) {
-  const mealIds = getMealsFromLocalStorage();
-  if (mealIds.length >= 6) {
-    mealIds.shift();
-    localStorage.setItem("mealIds", JSON.stringify([...mealIds, mealId]));
-  } else {
-    localStorage.setItem("mealIds", JSON.stringify([...mealIds, mealId]));
+  //Store meal id
+  function addMealToLocalStorage(mealId) {
+    const mealIds = getMealsFromLocalStorage();
+    if (mealIds.length >= 6) {
+      mealIds.shift();
+      localStorage.setItem("mealIds", JSON.stringify([...mealIds, mealId]));
+    } else {
+      localStorage.setItem("mealIds", JSON.stringify([...mealIds, mealId]));
+    }
   }
-}
 
-// Retrieve meal id
-function removeMealFromLocalStorage(mealId) {
-  const mealIds = getMealsFromLocalStorage();
-  localStorage.setItem(
-    "mealIds",
-    JSON.stringify(mealIds.filter((id) => id !== mealId))
-  );
-}
-
-function getMealsFromLocalStorage() {
-  //  will get error is null.  So, check it.
-  const mealIds = JSON.parse(localStorage.getItem("mealIds"));
-  return mealIds === null ? [] : mealIds; //return empty array if null.
-}
-
-// Add to favorite - go to GetMealById //
-async function fetchFavMeals() {
-  // const mealIds = getMealsFromLocalStorage();
-  let meal = 0;
-  favoriteContainer.innerHTML = "";
-
-  const mealIds = getMealsFromLocalStorage();
-  // All meal were stored in LS... read from it by Id.
-
-  for (let i = 0; i < mealIds.length; i++) {
-    const mealId = mealIds[i];
-    meal = await getMealById(mealId);
-    addMealToFav(meal);
-    // meal is undefined.
+  // Retrieve meal id
+  function removeMealFromLocalStorage(mealId) {
+    const mealIds = getMealsFromLocalStorage();
+    localStorage.setItem(
+      "mealIds",
+      JSON.stringify(mealIds.filter((id) => id !== mealId))
+    );
   }
-}
-// Need to be added to screen
 
-function addMealToFav(mealData) {
-  // console.log(mealData); object
-  const favMeal = document.createElement("li");
-  favMeal.classList.add("fav-meal");
-  favMeal.id = `${mealData.idMeal}`; // set id of the li.
+  function getMealsFromLocalStorage() {
+    //  will get error is null.  So, check it.
+    const mealIds = JSON.parse(localStorage.getItem("mealIds"));
+    return mealIds === null ? [] : mealIds; //return empty array if null.
+  }
 
-  favMeal.innerHTML = `<img
+  // Add to favorite - go to GetMealById //
+  async function fetchFavMeals() {
+    // const mealIds = getMealsFromLocalStorage();
+    let meal = 0;
+    favoriteContainer.innerHTML = "";
+
+    const mealIds = getMealsFromLocalStorage();
+    // All meal were stored in LS... read from it by Id.
+
+    for (let i = 0; i < mealIds.length; i++) {
+      const mealId = mealIds[i];
+      meal = await getMealById(mealId);
+      addMealToFav(meal);
+      // meal is undefined.
+    }
+  }
+  // Need to be added to screen
+
+  function addMealToFav(mealData) {
+    // console.log(mealData); object
+    const favMeal = document.createElement("li");
+    favMeal.classList.add("fav-meal");
+    favMeal.id = `${mealData.idMeal}`; // set id of the li.
+
+    favMeal.innerHTML = `<img
       class="dish-img"
       src="${mealData.strMealThumb}"
       alt="${mealData.strMeal}"
@@ -171,56 +172,57 @@ function addMealToFav(mealData) {
     <i class="fas fa-window-close"></i>
   </button>`;
 
-  // ####Button to delete a favorite###### // Made into closure
+    // ####Button to delete a favorite###### // Made into closure
 
-  const btnLi = favMeal.querySelector(".clear");
-  btnLi.addEventListener("click", () => {
-    const liToBeRemove = document.getElementById(`${mealData.idMeal}`);
-    liToBeRemove.remove(); //delete li -- removeChild()????
-    removeMealFromLocalStorage(mealData.idMeal); // remove data from LS
-  });
-  favoriteContainer.appendChild(favMeal);
+    const btnLi = favMeal.querySelector(".clear");
+    btnLi.addEventListener("click", () => {
+      const liToBeRemove = document.getElementById(`${mealData.idMeal}`);
+      liToBeRemove.remove(); //delete li -- removeChild()????
+      removeMealFromLocalStorage(mealData.idMeal); // remove data from LS
+    });
+    favoriteContainer.appendChild(favMeal);
 
-  const dishImg = favMeal.querySelector(".dish-img");
-  // Popop display meal info used to be: favMeal
-  dishImg.addEventListener("click", () => {
-    // mealPopup.innerHTML = ``;
-    showMealInfo(mealData);
-  });
-}
-// ***** HERE
-// function createDiv() {
-//   const divNew = document.createElement("div");
-//   return divNew;
-// }
-
-//  Function to open the popup to show details
-function showMealInfo(mealData) {
-  //const mealPopupEl = document.getElementById("meal-info");
-  mealPopupEl.innerHTML = ""; // clean up
-
-  const mealInfoDetails = document.createElement("div");
-
-  const ingredients = []; // store the ingredient in an array.
-  // Clean it in case it
-  // Get ingredients
-  // ======
-  // Note that mealData is an object. so object.property or object["Property"] work
-  for (let i = 1; i <= 20; i++) {
-    if (mealData["strIngredient" + i]) {
-      ingredients.push(
-        `${mealData["strIngredient" + i]} : ${mealData["strMeasure" + i]}`
-      );
-    } else {
-      break;
-    }
+    const dishImg = favMeal.querySelector(".dish-img");
+    // Popop display meal info used to be: favMeal
+    dishImg.addEventListener("click", () => {
+      // mealPopup.innerHTML = ``;
+      showMealInfo(mealData);
+    });
   }
+  // ***** HERE
+  // function createDiv() {
+  //   const divNew = document.createElement("div");
+  //   return divNew;
+  // }
 
-  // =====
-  mealInfoDetails.innerHTML = ` `;
+  //  Function to open the popup to show details
 
-  // Need to understand all the ingreedient stuff
-  mealInfoDetails.innerHTML = `
+  function showMealInfo(mealData) {
+    //const mealPopupEl = document.getElementById("meal-info");
+    mealPopupEl.innerHTML = ""; // clean up
+
+    const mealInfoDetails = document.createElement("div");
+
+    const ingredients = []; // store the ingredient in an array.
+    // Clean it in case it
+    // Get ingredients
+    // ======
+    // Note that mealData is an object. so object.property or object["Property"] work
+    for (let i = 1; i <= 20; i++) {
+      if (mealData["strIngredient" + i]) {
+        ingredients.push(
+          `${mealData["strIngredient" + i]} : ${mealData["strMeasure" + i]}`
+        );
+      } else {
+        break;
+      }
+    }
+
+    // =====
+    mealInfoDetails.innerHTML = ` `;
+
+    // Need to understand all the ingreedient stuff
+    mealInfoDetails.innerHTML = `
 
         <h2>${mealData.strMeal}</h2>
         <img
@@ -241,30 +243,27 @@ function showMealInfo(mealData) {
             .join(" ")}
           </ul>       
 `;
-  mealPopupEl.appendChild(mealInfoDetails);
-  // const mealInfoEl = document.getElementById("meal-info"); // we will clear this
-  mealPopup.classList.add("show-meal-popup");
-}
-
-searchBtn.addEventListener("click", async () => {
-  mealsEl.innerHTML = ""; // clear the container
-  const search = searchInput.value;
-  searchedMeals = await getMealBySearch(search);
-  console.log(searchedMeals);
-
-  // const meals = await getMealBySearch(search);
-  // console.log(meals);
-
-  // Add results to random meal areas
-  if (searchedMeals) {
-    // in case search is null.
-    searchedMeals.forEach((meal) => {
-      addMeal(meal);
-    });
+    mealPopupEl.appendChild(mealInfoDetails);
+    // const mealInfoEl = document.getElementById("meal-info"); // we will clear this
+    mealPopup.classList.add("show-meal-popup");
   }
-});
 
-//HERE Close the meal popup window.
-popupBtn.addEventListener("click", () => {
-  mealPopup.classList.remove("show-meal-popup");
-});
+  searchBtn.addEventListener("click", async () => {
+    mealsEl.innerHTML = ""; // clear the container
+    const search = searchInput.value;
+    searchedMeals = await getMealBySearch(search);
+    console.log(searchedMeals);
+
+    if (searchedMeals) {
+      // in case search is null.
+      searchedMeals.forEach((meal) => {
+        addMeal(meal);
+      });
+    }
+  });
+
+  //HERE Close the meal popup window.
+  popupBtn.addEventListener("click", () => {
+    mealPopup.classList.remove("show-meal-popup");
+  });
+}
