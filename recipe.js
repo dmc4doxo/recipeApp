@@ -20,7 +20,7 @@ async function getRandomMeal() {
 
   responseData = await resp.json();
   randomMeal = responseData.meals[0];
-  console.log(randomMeal); // this is the same as mealData
+  // console.log(randomMeal); // this is the same as mealData
 
   addMeal(randomMeal, (random = true));
 }
@@ -48,14 +48,18 @@ async function getMealBySearch(term) {
 // Selecting Meals and adding to the random section.
 
 function addMeal(mealData, random = false) {
-  console.log(mealData); // same as randomMeal
+  //console.log(mealData); // same as randomMeal
   // const mealNumber = mealData.idMeal;
   const meal = document.createElement("div");
   meal.classList.add("meal");
 
   // not very secured - opened to code injection. use data attribute.
   meal.innerHTML = `<div class="meal-header">
-        ${random ? `<h3 class="random-meal-name">Random recipe </h3>` : ""}
+        ${
+          random
+            ? `<h3 class="random-meal-name">Random recipe </h3>`
+            : `<h3 class="random-meal-name">Search Results </h3>`
+        }
             
             <img
             class="random-recipe-img" id="mealImg"
@@ -105,11 +109,11 @@ function addMeal(mealData, random = false) {
     showMealInfo(mealData);
   });
 
-  // Break the search
-  // const randomName = meal.querySelector("h3");
-  // randomName.addEventListener("click", () => {
-  //   document.location.reload();
-  // });
+  // Click on Random or Search Results to reload
+  const randomSearchName = meal.querySelector(".random-meal-name");
+  randomSearchName.addEventListener("click", () => {
+    document.location.reload();
+  });
 }
 
 //Store meal id
@@ -256,12 +260,12 @@ searchBtn.addEventListener("click", async () => {
   mealsEl.innerHTML = ""; // clear the container
   const search = searchInput.value;
   searchedMeals = await getMealBySearch(search);
-  console.log(searchedMeals);
+  // console.log(searchedMeals);
 
   if (searchedMeals) {
     // in case search is null.
     searchedMeals.forEach((meal) => {
-      addMeal(meal);
+      addMeal(meal, (random = false));
     });
   }
 });
