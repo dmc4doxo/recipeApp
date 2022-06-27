@@ -95,8 +95,18 @@ function addMeal(mealData, random = false) {
   // Display popup info -- meal.addEventListener
   //const detailsDiv = createDiv();
 
-  meal.addEventListener("click", () => {
+  // meal.addEventListener("click", () => {
+  //   showMealInfo(mealData);
+  // });
+
+  const mealImg = meal.querySelector(".random-recipe-img");
+  mealImg.addEventListener("click", () => {
     showMealInfo(mealData);
+  });
+
+  const randomName = meal.querySelector(".random-meal-name");
+  randomName.addEventListener("click", () => {
+    document.location.reload();
   });
 }
 
