@@ -181,8 +181,9 @@ function addMealToFav(mealData) {
   });
   favoriteContainer.appendChild(favMeal);
 
-  // Popop display meal info
-  favMeal.addEventListener("click", () => {
+  const dishImg = favMeal.querySelector(".dish-img");
+  // Popop display meal info used to be: favMeal
+  dishImg.addEventListener("click", () => {
     // mealPopup.innerHTML = ``;
     showMealInfo(mealData);
   });
