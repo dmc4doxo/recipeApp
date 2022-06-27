@@ -231,7 +231,7 @@ body {
   align-items: center;
   /* margin-left: 1rem; */
   width: var(--fixed-width);
-  min-height: 700px;
+  max-height: 1050px;
   background-color: #e8ebef;
   border-radius: 20px;
   justify-self: center;
@@ -408,9 +408,16 @@ body {
   align-content: center;
 }
 
+.random-meal-name-container {
+  max-height: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
 .random-meal-name-container h4 {
   color: var(--grey-500);
-  margin-bottom: 1rem;
   padding-left: 1rem;
 }
 
@@ -418,11 +425,9 @@ body {
   background: transparent;
   border: none;
   font-size: 1.5rem;
-  margin-left: 2rem;
-  padding-bottom: 1.5rem;
-  padding-right: 1.5rem;
   color: rgb(229, 210, 238);
   cursor: pointer;
+  padding-right: 1rem;
 }
 
 .active {
