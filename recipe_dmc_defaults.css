@@ -296,7 +296,7 @@ width: fit-content;
 }
 
 .fav-title {
-  display: inline-block;
+  display: grid;
   margin: 0;
   padding: 0;
   justify-content: center;
@@ -306,11 +306,15 @@ width: fit-content;
   font-size: 1.1rem;
   text-align: center;
   color: purple;
+  margin: 0;
+  padding: 0;
 }
 .fav-title h4 span {
   font-size: 0.7rem;
   color: black;
   text-transform: lowercase;
+  margin: 0;
+  padding: 0;
 }
 
 .fav-header {
@@ -319,23 +323,29 @@ width: fit-content;
   margin-bottom: 0;
   background: #c1beff;
   border-radius: 10px;
-  padding: 0 10px;
-  min-height: 230px;
-  /* width: 520px; */
+  padding: 0 5px;
+  
 }
 
 .fav-meals {
   display: flex;
   gap: 0.3rem;
-  /* margin-left: 2rem; */
+ padding: 0;
+ margin: 0;
+max-width: 334.5px;
+flex-wrap: wrap;
+ justify-content: center;
 }
 /* fav-meal or fav-meals li*/
 .fav-meals li {
+  /* display: grid; */
   cursor: pointer;
   width: 80px;
   height: 80px;
   position: relative;
-  /* margin: 5px; */
+  padding: 2px 0px;
+  height: fit-content;
+ 
 }
 
 .fav-meals li .clear {
@@ -376,8 +386,11 @@ width: fit-content;
 .meals {
   /* min-height: var(--fixed-width6); */
   /* height: fit-content; */
+  
   margin:0;
+  margin:auto;
   overflow: hidden;
+  justify-content: center;
 }
 
 .meal-header {
@@ -387,6 +400,7 @@ width: fit-content;
   max-width: fit-content;
   max-height: fit-content;
   display: grid;
+  justify-content: center;
   position: relative;
   border-radius: 10px;
   /* overflow: hidden; */

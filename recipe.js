@@ -119,7 +119,7 @@ function addMeal(mealData, random = false) {
 //Store meal id
 function addMealToLocalStorage(mealId) {
   const mealIds = getMealsFromLocalStorage();
-  if (mealIds.length >= 4) {
+  if (mealIds.length >= 8) {
     mealIds.shift();
     localStorage.setItem("mealIds", JSON.stringify([...mealIds, mealId]));
   } else {
