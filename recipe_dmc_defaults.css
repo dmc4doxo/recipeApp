@@ -264,7 +264,7 @@ body {
   background: #eaecef;
   border: 1px solid;
   border-radius: 5px;
-  max-width: 150px;
+  max-width: 110px;
 }
 
 .fa-search {
@@ -280,7 +280,7 @@ width: fit-content;
 }
 
 .logo {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   color: rgb(225, 119, 58);
   margin-left:0.5rem;
