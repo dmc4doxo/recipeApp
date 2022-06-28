@@ -264,7 +264,7 @@ body {
   background: #eaecef;
   border: 1px solid;
   border-radius: 5px;
-  max-width: 200px;
+  max-width: 150px;
 }
 
 .fa-search {
@@ -283,7 +283,7 @@ width: fit-content;
   font-size: 1.2rem;
   font-weight: bold;
   color: rgb(225, 119, 58);
-  margin-left:1rem;
+  margin-left:0.5rem;
   padding-left: 0
 }
 
@@ -409,7 +409,7 @@ width: fit-content;
 }
 
 .random-recipe-img {
-  max-width: 380px;
+  max-width: 350px;
   /* height: 100%; */
   object-fit: cover;
   border-top-left-radius: 20px;
