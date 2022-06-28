@@ -238,7 +238,7 @@ body {
   background-color: #e8ebef;
   border-radius: 20px;
   justify-self: center;
-  position: absolute;
+  position: relative;
   max-width: fit-content;
 }
 
@@ -248,40 +248,46 @@ body {
   justify-content: space-between;
   align-items: center;
   max-width: var(--fixed-width6);
+  position: relative;
+  /* border: 1px solid blue; */
 }
 .search-container {
-  padding-right:2rem;
-  
+ width: fit-content;
+ margin-right: 1rem;
 }
 
 #search-text {
   margin: 0rem;
-  max-width: 150px;
   padding: 0.4rem 0rem;
   padding-left: 0.5rem;
   font-size: 1.25rem;
   background: #eaecef;
   border: 1px solid;
   border-radius: 5px;
+  max-width: 200px;
 }
 
 .fa-search {
   padding-bottom: 0.3rem;
-  font-size: 2rem;
+  font-size: 1.8rem;
   border: none;
   background: none;
+  
 }
+
 .logo-container {
-  min-width: 130px;
+width: fit-content;
 }
 
 .logo {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: bold;
   color: rgb(225, 119, 58);
-  margin: 0rem 1rem;
-  padding-left: 1.5rem;
+  margin-left:1rem;
+  padding-left: 0
 }
+
+
 
 .fav-container {
   display: grid;
