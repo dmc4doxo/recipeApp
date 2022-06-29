@@ -10,6 +10,8 @@ const mealPopup = document.getElementById("meal-popup"); // big group
 const popupBtn = document.getElementById("close-popup-btn");
 const mealPopupEl = document.getElementById("meal-info");
 
+const favTitle = document.getElementById("fav-title");
+
 getRandomMeal();
 fetchFavMeals();
 
@@ -139,6 +141,7 @@ function removeMealFromLocalStorage(mealId) {
 function getMealsFromLocalStorage() {
   //  will get error is null.  So, check it.
   const mealIds = JSON.parse(localStorage.getItem("mealIds"));
+
   return mealIds === null ? [] : mealIds; //return empty array if null.
 }
 
@@ -146,10 +149,16 @@ function getMealsFromLocalStorage() {
 async function fetchFavMeals() {
   // const mealIds = getMealsFromLocalStorage();
   let meal = 0;
+
   favoriteContainer.innerHTML = "";
 
   const mealIds = getMealsFromLocalStorage();
   // All meal were stored in LS... read from it by Id.
+
+  // if (mealIds == 0) {
+  //   favTitle.classList.remove("show-fav-title");
+  // }
+  // Why mealIds===[] is not working even though mealIds is empty.
 
   for (let i = 0; i < mealIds.length; i++) {
     const mealId = mealIds[i];
@@ -165,6 +174,8 @@ function addMealToFav(mealData) {
   // console.log(mealData); object
   const favMeal = document.createElement("li");
   favMeal.classList.add("fav-meal");
+  favTitle.classList.add("show-fav-title");
+
   favMeal.id = `${mealData.idMeal}`; // set id of the li.
 
   favMeal.innerHTML = `<img
