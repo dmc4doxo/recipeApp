@@ -234,13 +234,13 @@ body {
   display: grid;
   justify-content: center;
   align-items: center;
-  min-width: 350px;
+  min-width: 352px;
   background-color: #e8ebef;
   border-radius: 20px;
   justify-self: center;
   position: relative;
   max-width: fit-content;
-  padding: 0 3px;
+  padding: 0 2px;
 }
 
 .header-container {

@@ -212,15 +212,7 @@ function addMealToFav(mealData) {
 }
 // END of addMealtoFav added
 
-// ***** HERE
-// function createDiv() {
-//   const divNew = document.createElement("div");
-//   return divNew;
-// }
-//  Function to open the popup to show details
-
 function showMealInfo(mealData) {
-  //const mealPopupEl = document.getElementById("meal-info");
   mealPopupEl.innerHTML = ""; // clean up
 
   const mealInfoDetails = document.createElement("div");
@@ -243,7 +235,6 @@ function showMealInfo(mealData) {
   // =====
   mealInfoDetails.innerHTML = ` `;
 
-  // Need to understand all the ingreedient stuff
   mealInfoDetails.innerHTML = `
 
         <h2>${mealData.strMeal}</h2>
