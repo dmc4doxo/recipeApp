@@ -234,12 +234,13 @@ body {
   display: grid;
   justify-content: center;
   align-items: center;
-  width: var(--fixed-width6);
+  min-width: 350px;
   background-color: #e8ebef;
   border-radius: 20px;
   justify-self: center;
   position: relative;
   max-width: fit-content;
+  padding: 0 3px;
 }
 
 .header-container {
@@ -252,6 +253,7 @@ body {
   margin-bottom: 2px;
   margin-top:2rem;  
 }
+
 .search-container {
  width: fit-content;
  margin-right: 1rem;
@@ -260,7 +262,7 @@ body {
 #search-text {
   margin: 0rem;
   padding: 0.4rem 0rem;
-  padding-left: 0.5rem;
+  padding-left: 0.25rem;
   font-size: 1.25rem;
   background: #eaecef;
   border: 1px solid;
@@ -271,7 +273,7 @@ body {
 .fa-search {
   padding-bottom: 0.3rem;
   font-size: 1.8rem;
-  border: none;
+ border: none;
   background: none;
   
 }
@@ -285,7 +287,9 @@ width: fit-content;
   font-weight: bold;
   color: rgb(225, 119, 58);
   margin-left:0.5rem;
-  padding-left: 0
+  padding-left: 0;
+  cursor: pointer;
+  
 }
 
 
@@ -449,16 +453,21 @@ flex-wrap: wrap;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 350px;
+
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
    background: white;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0.5rem;
   
 }
 
 .random-meal-name-container h4 {
   color: var(--grey-500);
   font-size: 1.2rem;
+  margin: 0;
+  padding:0;
+
 }
 
 .fav-btn {
@@ -467,7 +476,7 @@ flex-wrap: wrap;
   font-size: 1.5rem;
   color: rgb(229, 210, 238);
   cursor: pointer;
-  padding-right: 1rem;
+  padding-right: 0.5rem;
 }
 
 .active {
