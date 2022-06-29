@@ -333,7 +333,7 @@ width: fit-content;
   margin-bottom: 0;
   background: #c1beff;
   border-radius: 10px;
-  padding: 0 5px;
+  padding: 0 2px;
 
 }
 
@@ -342,7 +342,7 @@ width: fit-content;
   gap: 0.3rem;
  padding: 0;
  margin: 0;
-max-width: 335px;
+max-width: 336px;
 flex-wrap: wrap;
  justify-content: center;
 }
