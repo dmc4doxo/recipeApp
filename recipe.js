@@ -1,5 +1,7 @@
 // Meal API supplied by themealdb.com at https://www.themealdb.com/api.php
 //
+const logoEl = document.getElementById("logo");
+
 const mealsEl = document.getElementById("meals");
 const favoriteContainer = document.getElementById("fav-meals");
 
@@ -114,7 +116,9 @@ function addMeal(mealData, random = false) {
   // Click on Random or Search Results to reload
   const randomSearchName = meal.querySelector(".random-meal-name");
   randomSearchName.addEventListener("click", () => {
-    document.location.reload();
+    // document.location.reload();
+    meal.innerHTML = "";
+    getRandomMeal();
   });
 }
 
@@ -190,13 +194,13 @@ function addMealToFav(mealData) {
   </button>`;
 
   // ####Button to delete a favorite###### // Made into closure
-
   const btnLi = favMeal.querySelector(".clear");
   btnLi.addEventListener("click", () => {
     const liToBeRemove = document.getElementById(`${mealData.idMeal}`);
     liToBeRemove.remove(); //delete li -- removeChild()????
     removeMealFromLocalStorage(mealData.idMeal); // remove data from LS
   });
+
   favoriteContainer.appendChild(favMeal);
 
   const dishImg = favMeal.querySelector(".dish-img");
@@ -284,4 +288,10 @@ searchBtn.addEventListener("click", async () => {
 //HERE Close the meal popup window.
 popupBtn.addEventListener("click", () => {
   mealPopup.classList.remove("show-meal-popup");
+});
+
+// Reload Page via Logo click
+
+logoEl.addEventListener("click", () => {
+  document.location.reload();
 });
